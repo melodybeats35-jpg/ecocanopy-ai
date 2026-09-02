@@ -1,13 +1,14 @@
 import streamlit as st
-import pickle
+import xgboost as xgb
 import pandas as pd
 
 st.set_page_config(page_title="EcoCanopy AI", page_icon="🌳", layout="wide")
 
 @st.cache_resource
 def load_model():
-    with open("ecocanopy_model.pkl", "rb") as f:
-        return pickle.load(f)
+    model = xgb.XGBRegressor()
+    model.load_model("ecocanopy_model.json")
+    return model
 
 @st.cache_data
 def load_city_data():
